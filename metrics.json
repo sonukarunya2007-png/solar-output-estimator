@@ -1,0 +1,212 @@
+{
+  "model": "Random Forest",
+  "target": "sum of inverter AC_POWER per plant timestamp (dataset units)",
+  "features": [
+    "AMBIENT_TEMPERATURE",
+    "MODULE_TEMPERATURE",
+    "IRRADIATION",
+    "hour_sin",
+    "hour_cos",
+    "temp_diff",
+    "plant"
+  ],
+  "periods": {
+    "train": {
+      "start": "2020-05-15 00:00:00",
+      "end": "2020-06-07 19:00:00",
+      "rows": 4460
+    },
+    "validation": {
+      "start": "2020-06-07 19:15:00",
+      "end": "2020-06-12 21:15:00",
+      "rows": 978
+    },
+    "test": {
+      "start": "2020-06-12 21:30:00",
+      "end": "2020-06-17 23:45:00",
+      "rows": 978
+    }
+  },
+  "validation_metrics": {
+    "Extra Trees (leaf=1)": {
+      "mae": 444.4803902596323,
+      "rmse": 1217.1345367466122,
+      "r2": 0.9707882183329188
+    },
+    "Extra Trees (leaf=2)": {
+      "mae": 437.9392717504545,
+      "rmse": 1206.2661842576151,
+      "r2": 0.9713075799163654
+    },
+    "Extra Trees (leaf=4)": {
+      "mae": 443.7817660811702,
+      "rmse": 1215.758929250752,
+      "r2": 0.9708542114283979
+    },
+    "Extra Trees (tuned: leaf=2, 600 trees, all features)": {
+      "mae": 432.01348558913685,
+      "rmse": 1199.4985361891618,
+      "r2": 0.9716286292645059
+    },
+    "Random Forest": {
+      "mae": 419.46034931490976,
+      "rmse": 1180.3593799047062,
+      "r2": 0.9725267912966367
+    },
+    "Histogram Gradient Boosting": {
+      "mae": 441.4165687384305,
+      "rmse": 1245.1176450684143,
+      "r2": 0.9694295628092514
+    }
+  },
+  "test_metrics": {
+    "mae": 466.8079296060432,
+    "rmse": 1309.2841860294395,
+    "r2": 0.9657013840827018
+  },
+  "test_metrics_by_plant": {
+    "Plant 1": {
+      "mae": 228.27110211305083,
+      "rmse": 503.0325483096445,
+      "r2": 0.9962126462536613
+    },
+    "Plant 2": {
+      "mae": 704.3711373949826,
+      "rmse": 1780.2933469801774,
+      "r2": 0.9000817163398608
+    }
+  },
+  "deviation_thresholds_abs_error_p99_validation": {
+    "Plant 1": 806.0014701411754,
+    "Plant 2": 5214.864025484117
+  },
+  "flagged_test_rows": 58,
+  "flagged_by_plant": {
+    "Plant 1": 47,
+    "Plant 2": 11
+  },
+  "flagged_environment_out_of_range": 0,
+  "interpretation": "Flags identify large model residuals for review; they do not establish equipment faults or causation.",
+  "error_associations_descriptive": {
+    "irradiance_band": {
+      "Plant 1 | near-zero": {
+        "rows": 264,
+        "mae": 6.192552814930727,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 19.71969696969697
+      },
+      "Plant 1 | low": {
+        "rows": 46,
+        "mae": 131.03689904682832,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 0.0
+      },
+      "Plant 1 | moderate": {
+        "rows": 84,
+        "mae": 339.0347396106542,
+        "flagged_rows": 8,
+        "flagged_rate": 0.09523809523809523,
+        "mean_zero_ac_inverters": 0.10714285714285714
+      },
+      "Plant 1 | high": {
+        "rows": 94,
+        "mae": 800.5834936657236,
+        "flagged_rows": 39,
+        "flagged_rate": 0.4148936170212766,
+        "mean_zero_ac_inverters": 0.18085106382978725
+      },
+      "Plant 2 | near-zero": {
+        "rows": 263,
+        "mae": 5.0314777209399235,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 19.41444866920152
+      },
+      "Plant 2 | low": {
+        "rows": 58,
+        "mae": 219.63872076310548,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 0.0
+      },
+      "Plant 2 | moderate": {
+        "rows": 105,
+        "mae": 1187.2703340209378,
+        "flagged_rows": 1,
+        "flagged_rate": 0.009523809523809525,
+        "mean_zero_ac_inverters": 0.7428571428571429
+      },
+      "Plant 2 | high": {
+        "rows": 64,
+        "mae": 3225.2523094761827,
+        "flagged_rows": 10,
+        "flagged_rate": 0.15625,
+        "mean_zero_ac_inverters": 6.125
+      }
+    },
+    "time_band": {
+      "Plant 1 | before 09:00": {
+        "rows": 183,
+        "mae": 73.6904810320823,
+        "flagged_rows": 3,
+        "flagged_rate": 0.01639344262295082,
+        "mean_zero_ac_inverters": 14.617486338797814
+      },
+      "Plant 1 | 09:00\u201315:00": {
+        "rows": 120,
+        "mae": 728.8937797461093,
+        "flagged_rows": 44,
+        "flagged_rate": 0.36666666666666664,
+        "mean_zero_ac_inverters": 0.21666666666666667
+      },
+      "Plant 1 | after 15:00": {
+        "rows": 185,
+        "mae": 56.452358014943925,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 13.68108108108108
+      },
+      "Plant 2 | before 09:00": {
+        "rows": 185,
+        "mae": 134.28288602619565,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 14.345945945945946
+      },
+      "Plant 2 | 09:00\u201315:00": {
+        "rows": 120,
+        "mae": 2434.20358378759,
+        "flagged_rows": 11,
+        "flagged_rate": 0.09166666666666666,
+        "mean_zero_ac_inverters": 3.816666666666667
+      },
+      "Plant 2 | after 15:00": {
+        "rows": 185,
+        "mae": 152.4059100226188,
+        "flagged_rows": 0,
+        "flagged_rate": 0.0,
+        "mean_zero_ac_inverters": 13.31891891891892
+      }
+    }
+  },
+  "zero_ac_inverter_diagnostic": {
+    "unflagged_test_mean": 11.666304347826086,
+    "flagged_test_mean": 1.293103448275862,
+    "note": "Generation zero counts are descriptive only and excluded from model predictors; zeros alone do not establish a fault."
+  },
+  "flagged_summary": {
+    "mean_irradiation": 0.6608044692440971,
+    "median_irradiation": 0.6511352006666666,
+    "mean_hour": 11.90948275862069,
+    "mean_abs_residual": 2746.8660992911114,
+    "above_estimate": 36,
+    "below_estimate": 22
+  },
+  "deviation_periods": 24,
+  "deviation_periods_by_plant": {
+    "Plant 1": 17,
+    "Plant 2": 7
+  }
+}
