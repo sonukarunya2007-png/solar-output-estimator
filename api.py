@@ -15,12 +15,11 @@ from pydantic import BaseModel, Field
 from train_model import add_time_features, FEATURES, ROOT
 
 app = FastAPI(title="Solar Output Estimator", description="Plant-level AC power estimates with held-out deviation review.", version="1.0.0")
-MODEL_PATH = ROOT / "outputs" / "solar_model.joblib"
-REPORT_PATH = ROOT / "outputs" / "metrics.json"
-PREDICTIONS_PATH = ROOT / "outputs" / "heldout_predictions.csv"
-DEVIATIONS_PATH = ROOT / "outputs" / "significant_deviation_periods.csv"
-STATIC = ROOT / "static"
-
+MODEL_PATH = ROOT / "solar_model.joblib"
+REPORT_PATH = ROOT / "metrics.json"
+PREDICTIONS_PATH = ROOT / "heldout_predictions.csv"
+DEVIATIONS_PATH = ROOT / "significant_deviation_periods.csv"
+STATIC = ROOT
 
 class PredictionInput(BaseModel):
     plant: str = Field(pattern=r"^Plant [12]$")
